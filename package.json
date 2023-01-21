@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.1",
+    "axios": "^1.2.3",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
+    "http": "^0.0.1-security",
     "is-port-reachable": "^4.0.0",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.4",

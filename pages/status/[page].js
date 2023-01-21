@@ -1,10 +1,26 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 function StatusPage(props) {
-	const [isStatusTrue] = useState(true);
+	const [isStatusTrue] = React.useState(true);
+	const [responseTime,setResponseTime] = React.useState(0);
+
+	React.useEffect(() => {
+		(async () => {
+			const resTime = await getResponseTime();
+			setResponseTime(resTime);
+		})();
+	},[])
+
+	const getResponseTime = async() => {
+		const request_start_at = performance.now();
+		const response = await fetch(props.url,{mode:"no-cors"});
+		const response_end = performance.now();
+		const request_duration = response_end - request_start_at;
+		return request_duration;
+	}
+
 
 	return (
 		<div className="mt-20 max-w-7xl mx-auto h-screen">
@@ -44,6 +60,9 @@ function StatusPage(props) {
 					</li>
 					<li>
 						Port: <span className="text-indigo-200">{props.port}</span>
+					</li>
+					<li>
+						Response Time: <span className="text-indigo-200">{responseTime} ms</span>
 					</li>
 				</ul>
 			</div>
