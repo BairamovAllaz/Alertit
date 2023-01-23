@@ -18,29 +18,33 @@ export default function SignIn({ csrfToken }) {
 	const router = useRouter();
 
 	const handleClick = () => {
-		toggleEye(!isEyeOpen)
-		const type = document.getElementById("password").getAttribute('type') === 'password' ? 'text' : 'password';
-		document.getElementById("password").setAttribute('type', type);
-
-	}
-
+		toggleEye(!isEyeOpen);
+		const type =
+			document.getElementById("password").getAttribute("type") === "password"
+				? "text"
+				: "password";
+		document.getElementById("password").setAttribute("type", type);
+	};
 
 	return (
 		<section className="bg-gray-900 absolute w-full">
 			<div className="flex justify-center h-screen overflow-hidden">
-				<SignInCTA highlightText="AlertIt is an uptime monitoring service by Evil Bees. Monitoring is
+				<SignInCTA
+					highlightText="AlertIt is an uptime monitoring service by Evil Bees. Monitoring is
 						performed through HTTP/S or TCP protocol, and allows you to check
 						for a specific service — and be the first to get notified if service
-						is down. Sounds useful?" highlightBtn="Let's get started."/>
+						is down. Sounds useful?"
+					highlightBtn="Let's get started."
+				/>
 
 				<div
 					className={`text-4xl font-bold text-center text-white  ${
-						router.query.success ? "visible" : "invisible"
+						router.query.success ? "block" : "hidden"
 					}`}
 				>
 					Account created, please login!
 				</div>
-				<div className="flex items-center md:max-w-md px-6 mx-auto md:w-1/2">
+				<div className="flex items-center px-6 mx-auto w-full md:w-1/2">
 					<div className="flex-1">
 						<div className="text-center">
 							<h2 className="text-4xl font-bold text-center text-white">
@@ -58,7 +62,7 @@ export default function SignIn({ csrfToken }) {
 							className="flex flex-col mt-8"
 						>
 							<input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-							<label className="block mb-2 text-sm text-gray-600 text-gray-200">
+							<label className="block mb-2 text-lg text-gray-600 text-gray-200">
 								Email
 								<input
 									placeholder="Enter your email"
@@ -69,14 +73,14 @@ export default function SignIn({ csrfToken }) {
 									type="email"
 									required
 									minLength="4"
-									onChange={e => {
+									onChange={(e) => {
 										setValue(e.currentTarget.value);
 										const userEmail = JSON.stringify(e.currentTarget.value);
 
 										userEmail.length - 2 >= 4
 											? setButtonClass(
-												"bg-gradient-to-r from-indigo-600 via-indigo-100 to-white"
-											)
+													"bg-gradient-to-r from-indigo-600 via-indigo-100 to-white"
+											  )
 											: "";
 
 										userEmail.length <= 2 ? setButtonClass("bg-white") : "";
@@ -86,7 +90,7 @@ export default function SignIn({ csrfToken }) {
 									}}
 								/>
 							</label>
-							<label className="relative flex flex-col block mt-8 mb-4 text-sm text-gray-600 text-gray-200">
+							<label className="relative flex flex-col block mt-8 mb-4 text-lg text-gray-600 text-gray-200">
 								Password
 								<input
 									placeholder="Enter your password"
@@ -96,7 +100,7 @@ export default function SignIn({ csrfToken }) {
 									type={showPassword ? "text" : "password"}
 									required
 									minLength="4"
-									onChange={e => {
+									onChange={(e) => {
 										setButtonClass("bg-white");
 									}}
 								/>
@@ -115,12 +119,7 @@ export default function SignIn({ csrfToken }) {
 									/>
 								</button>
 							</label>
-							<a
-								href="/forgotten-password"
-								className="text-sm self-end text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-							>
-								Forgot password?
-							</a>
+
 							<div className="flex relative">
 								<div className={`absolute left-[59%] top-1/4 ${funEyeClass}`}>
 									<Image

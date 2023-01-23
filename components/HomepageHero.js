@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Button from "./Button";
 
 import twoPhones from "../public/images/two-phones.png";
@@ -35,7 +36,7 @@ function HomepageHero() {
 							<span className="block"> Uptime Monitor</span>
 						</p>
 						<div className="absolute -bottom-1/2 left-[5%] md:relative lg:left-0 group max-w-max">
-							<button
+							<Link
 								href="signin"
 								className=" font-semibold text-sm lg:text-lg text-gray-900 uppercase tracking-px overflow-hidden rounded-md"
 							>
@@ -43,7 +44,7 @@ function HomepageHero() {
 									<div className="absolute top-0 left-0 transform -translate-y-full group-hover:-translate-y-0 h-full w-full bg-white transition ease-in-out duration-500"></div>
 									<p className="relative z-10">Get Started</p>
 								</div>
-							</button>
+							</Link>
 						</div>
 					</div>
 				</div>

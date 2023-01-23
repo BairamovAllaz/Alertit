@@ -1,40 +1,49 @@
-import React, {useState} from 'react'
-import { useRouter } from 'next/router'
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 function SearchMonitor(props) {
+	const router = useRouter();
 
-  const router = useRouter();
+	const handleSubmit = async event => {
+		event.preventDefault();
 
-  const handleSubmit = async (event) => {
+		const searchId = event.target.searchInput.value;
 
-    event.preventDefault();
+		if (isValidMongoId(searchId)) {
+			router.push(`/status/${searchId}`);
+		} else {
+			props.showAlert("Please enter valid ID");
+		}
+	};
 
-    const searchId = event.target.searchInput.value;
+	function isValidMongoId(Id) {
+		return Id.match(/^[0-9a-fA-F]{24}$/);
+	}
 
-    if (isValidMongoId(searchId)) {
-      router.push(`/status/${searchId}`);
-    } else {
-      props.showAlert("Please enter valid ID")
-
-    }
-
-  }
-
-  function isValidMongoId(Id) {
-    return Id.match(/^[0-9a-fA-F]{24}$/);
-  }
-
-  return (
-    <div className="h-screen flex justify-center">
-      <form onSubmit={handleSubmit} className="flex h-10 space-x-2 mt-20">
-        <input
-          className="placeholder:italic placeholder:text-slate-500 text-base block bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Monitor ID" type="text" name="searchInput"
-          required
-        />
-        <input type="submit" value="Search" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" />
-      </form>
-    </div>
-  )
+	return (
+		<div className="h-screen py-10 max-w-7xl w-full mx-auto px-6 md:px-12">
+			<form onSubmit={handleSubmit}>
+				<div className="mx-10 relative sm:w-full md:w-1/2 items-center m-auto lg:mx-auto">
+					<h2 className="text-white text-3xl md:text-4xl mb-12 md: my-12">
+						Search Monitors by ID
+					</h2>
+					<input
+						className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[1000px]"
+						placeholder="Monitor ID"
+						type="text"
+						name="searchInput"
+						required
+					/>
+					<button
+						type="submit"
+						className="text-white absolute right-2.5 bottom-2.5  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					>
+						Search
+					</button>
+				</div>
+			</form>
+		</div>
+	);
 }
 
-export default SearchMonitor
+export default SearchMonitor;

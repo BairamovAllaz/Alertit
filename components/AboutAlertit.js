@@ -25,7 +25,7 @@ function AboutAlertit() {
 						<div className="relative w-full lg:w-1/2 px-6 mb-10 lg:mb-20">
 							<div
 								id="alertit-intro"
-								className="px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg"
+								className="px-6 md:px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg"
 							>
 								<span className="flex mb-10 justify-center items-center w-20 h-20 bg-blue-500 rounded-lg">
 									<VscActivateBreakpoints className="w-8 h-8" />
@@ -40,7 +40,7 @@ function AboutAlertit() {
 							</div>
 						</div>
 						<div className="relative w-full lg:w-1/2 px-6 mb-10 lg:mb-20">
-							<div className="px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
+							<div className="px-6 md:px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
 								<span className="flex mb-10 justify-center items-center w-20 h-20 bg-green-500 rounded-lg">
 									<VscVmActive className="w-8 h-8" />
 								</span>
@@ -55,7 +55,7 @@ function AboutAlertit() {
 							</div>
 						</div>
 						<div className="w-full lg:w-1/2 px-6 mb-10 lg:mb-20">
-							<div className="px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
+							<div className="px-6 md:px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
 								<span className="flex mb-10 justify-center items-center w-20 h-20 bg-violet-500 rounded-lg">
 									<VscReplaceAll className="w-8 h-8" />
 								</span>
@@ -69,7 +69,7 @@ function AboutAlertit() {
 							</div>
 						</div>
 						<div className="w-full lg:w-1/2 px-6">
-							<div className="px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
+							<div className="px-6 md:px-16 pt-16 pb-24 lg:min-h-[480px] bg-gray-600 rounded-lg">
 								<span className="flex mb-10 justify-center items-center w-20 h-20 bg-pink-500 rounded-lg">
 									<VscSymbolEvent className="w-8 h-8" />
 								</span>

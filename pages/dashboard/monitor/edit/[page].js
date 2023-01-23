@@ -1,9 +1,12 @@
 import { useSession, getSession } from "next-auth/react";
-import Link from "next/link";
+import { useState } from "react";
 import Router from "next/router";
 import Head from "next/head";
 
+import { FiChevronDown } from "react-icons/fi";
+
 function EditMonitor(props) {
+	const [showDelete, setDeleteMonitor] = useState(false);
 	const { data: session } = useSession();
 	const submitForm = e => {
 		e.preventDefault();
@@ -51,21 +54,50 @@ function EditMonitor(props) {
 			.catch(error => console.log("error", error));
 	};
 
+	function deleteMonitorEvent(e, remove) {
+		e.preventDefault();
+
+		if (confirm("Do you want to delete ?") == true) {
+			const raw = JSON.stringify({
+				id: remove,
+			});
+			const myHeaders = new Headers();
+
+			myHeaders.append("Content-Type", "application/json");
+
+			const requestOptions = {
+				method: "DELETE",
+				headers: myHeaders,
+				body: raw,
+				redirect: "follow",
+			};
+
+			fetch(props.SITE_URI + "/api/monitors", requestOptions)
+				.then(response => response.json())
+				.then(result => {
+					if (result.success === true) {
+						Router.push("/");
+					}
+				})
+				.catch(error => console.log("error", error));
+		}
+	}
+
 	return (
-		<div className="mt-10 max-w-7xl mx-auto px-4 md:px-6">
+		<div className="md:w-3/4 xl:w-1/2 max-w-[700px] py-16 px-8 md:px-12 text-white mx-auto">
 			<Head>
 				<title>Edit Monitor</title>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
-			<div className="block mb-2 dark:text-white">Edit Monitor</div>
+			<h1 className="text-3xl mb-4">Edit Monitor</h1>
 
 			<form
-				className="w-full max-w-lg"
+				className="w-full flex flex-col gap-5"
 				method="POST"
 				action=""
 				onSubmit={submitForm}
 			>
-				<div className="mb-6">
+				<div>
 					<label className="block mb-2 dark:text-white" htmlFor="enabled">
 						Enabled
 					</label>
@@ -73,7 +105,7 @@ function EditMonitor(props) {
 						id="enabled"
 						required
 						defaultValue={props.enabled}
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						name="enabled"
 					>
 						<option defaultValue="true">true</option>
@@ -81,7 +113,7 @@ function EditMonitor(props) {
 					</select>
 				</div>
 
-				<div className="mb-6">
+				<div>
 					<label className="block mb-2 dark:text-white" htmlFor="name">
 						Name
 					</label>
@@ -89,13 +121,13 @@ function EditMonitor(props) {
 						id="name"
 						defaultValue={props.name}
 						required
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						type="text"
 						name="name"
 					/>
 				</div>
 
-				<div className="mb-6">
+				<div>
 					<label className="block mb-2 dark:text-white" htmlFor="url">
 						URL
 					</label>
@@ -103,13 +135,13 @@ function EditMonitor(props) {
 						id="url"
 						required
 						defaultValue={props.url}
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						type="url"
 						name="url"
 					/>
 				</div>
 
-				<div className="mb-6">
+				<div>
 					<label className="block mb-2 dark:text-white" htmlFor="heartbeat">
 						Heartbeat
 					</label>
@@ -117,7 +149,7 @@ function EditMonitor(props) {
 						id="heartbeat"
 						required
 						defaultValue={props.heartbeat}
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						name="heartbeat"
 					>
 						<option>Choose heartbeat</option>
@@ -129,7 +161,7 @@ function EditMonitor(props) {
 					</select>
 				</div>
 
-				<div className="mb-6">
+				<div>
 					<label
 						className="block mb-2 dark:text-white"
 						htmlFor="acceptedStatusCodes"
@@ -140,7 +172,7 @@ function EditMonitor(props) {
 						defaultValue={props.acceptedStatusCodes}
 						id="acceptedStatusCodes"
 						required
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						name="acceptedStatusCodes"
 					>
 						<option>Choose acceptedStatusCodes</option>
@@ -153,7 +185,7 @@ function EditMonitor(props) {
 					</select>
 				</div>
 
-				<div className="mb-6">
+				<div>
 					<label className="block mb-2 dark:text-white" htmlFor="monitorType">
 						Monitor Type
 					</label>
@@ -161,7 +193,7 @@ function EditMonitor(props) {
 						id="monitorType"
 						required
 						defaultValue={props.monitorType}
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						name="monitorType"
 					>
 						<option>Choose a monitor type</option>
@@ -178,26 +210,40 @@ function EditMonitor(props) {
 						id="port"
 						defaultValue={props.port}
 						required
-						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
 						type="number"
 						name="port"
 					/>
 				</div>
-
 				<button
-					className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					className="w-1/2 lg:w-full mt-4 lg:mt-[30px] text-white bg-blue-700 hover:ring-2 hover:outline-none hover:ring-blue-300 rounded-lg px-5 py-2.5 text-center"
 					type="submit"
 				>
 					Save
 				</button>
 			</form>
+			<div className="flex flex-col">
+				<button
+					className="text-lg mt-6 text-left flex items-center gap-3 pb-2 mb-4 border-b border-red-700 text-red-700"
+					onClick={() => setDeleteMonitor(prev => !prev)}
+					type="button"
+				>
+					Delete Monitor
+					<FiChevronDown
+						className={`h-5 w-5 ${showDelete ? "" : "rotate-180"}`}
+					/>
+				</button>
 
-			<Link
-				className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-				href="#"
-			>
-				Delete Monitor
-			</Link>
+				<button
+					className={`w-1/2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ${
+						showDelete ? "block" : "hidden"
+					}`}
+					onClick={event => deleteMonitorEvent(event, props.monitorId)}
+					type="submit"
+				>
+					Delete
+				</button>
+			</div>
 		</div>
 	);
 }

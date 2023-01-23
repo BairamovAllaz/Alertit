@@ -32,34 +32,32 @@ function StatusPage(props) {
 					height={400}
 				/>
 				<ul className="text-stone-50 text-2xl flex flex-col gap-4 mt-16">
-					<li>
-						Site Name: <span className="text-indigo-200">{props.name}</span>
+					<li className="text-indigo-200">
+						Site Name: <span className="text-white">{props.name}</span>
 					</li>
-					<li>
+					<li className="text-indigo-200">
 						<Link href={props.url}>
-							Site url :{" "}
-							<span className="text-indigo-200 hover:underline">
-								{props.url}
-							</span>{" "}
+							Site URL :{" "}
+							<span className="text-white hover:underline">{props.url}</span>{" "}
 						</Link>
 					</li>
-					<li>
+					<li className="text-indigo-200">
 						Last check time:{" "}
-						<span className="text-indigo-200">{props.lastCheck}</span>
+						<span className="text-white">{props.lastCheck}</span>
 					</li>
 
-					<li>
+					<li className="text-indigo-200">
 						Status:{" "}
 						<span className={isStatusTrue ? "text-green-400" : "text-red-400"}>
 							{props.upCheckStatus.toString()}
 						</span>
 					</li>
-					<li>
+					<li className="text-indigo-200">
 						Accepted Status code:{" "}
-						<span className="text-indigo-200">{props.acceptedStatusCodes}</span>
+						<span className="text-white">{props.acceptedStatusCodes}</span>
 					</li>
-					<li>
-						Port: <span className="text-indigo-200">{props.port}</span>
+					<li className="text-indigo-200">
+						Port: <span className="text-white">{props.port}</span>
 					</li>
 					<li>
 						Response Time: <span className="text-indigo-200">{responseTime} ms</span>

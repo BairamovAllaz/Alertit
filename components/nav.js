@@ -33,7 +33,7 @@ function Navigation() {
 					className="lg:hidden"
 					src={HamburgerIcon}
 					alt="Two white dashes"
-					onClick={() => setIsNavOpen(prev => !prev)}
+					onClick={() => setIsNavOpen((prev) => !prev)}
 				/>
 				<div
 					className={`flex flex-col justify-start lg:flex-row items-center lg:justify-between lg:flex-wrap pt-0 px-4 text-white ${
@@ -46,17 +46,17 @@ function Navigation() {
 					/>
 
 					{session ? (
-						<ul className="flex flex-col self-start lg:flex-row text-lg items-left lg:items-center text-white mt-8 lg:m-0">
-							<li className="border border-white border-md lg:border-none p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black  focus-within:bg-white focus-within:text-black  lg:w-auto">
+						<ul className="flex flex-col text-center self-start lg:flex-row text-lg items-left lg:items-center text-white mt-8 lg:m-0 mx-auto gap-4">
+							<li className="p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black focus-within:bg-white focus-within:text-black lg:w-auto">
 								<Link href="/dashboard"> Dashboard </Link>
 							</li>
 
-							<li className="border border-white border-md lg:border-none p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black  focus-within:bg-white focus-within:text-black  lg:w-auto">
+							<li className="p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black focus-within:bg-white focus-within:text-black  lg:w-auto">
 								<Link href="/status"> Status </Link>
 							</li>
-							<li className="border border-white border-md lg:border-none p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black  focus-within:bg-white focus-within:text-black  lg:w-auto">
+							<li className="p-3 w-[200px] active:bg-white active:text-black focus:bg-white focus:text-black focus-within:bg-white focus-within:text-black  lg:w-auto">
 								<Link
-									className="flex items-center gap-3"
+									className="flex items-center justify-center gap-3"
 									href="/dashboard/user"
 								>
 									{"Edit profile"}
@@ -98,8 +98,7 @@ function Navigation() {
 			}
 		 }
 		 .showMenuNav {
-		   display: block;
-		   position: absolute;
+		   position: fixed;
 		   width: 100%;
 		   height: 100vh;
 		   top: 0;
